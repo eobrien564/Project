@@ -1,0 +1,40 @@
+{
+  "Records": [
+    {
+      "cf": {
+        "config": {
+          "distributionDomainName": "https://d2r1l8k32qe758.cloudfront.net",
+          "distributionId": "E1J03GUBWX9Y8C",
+          "eventType": "viewer-request",
+          "requestId": "4TyzHTaYWb1GX1qTfsHhEqV6HUDd_BzoBZnwfnvQc_1oF26ClkoUSEQ=="
+        },
+        "request": {
+          "clientIp": "203.0.113.178",
+          "headers": {
+            "host": [
+              {
+                "key": "Host",
+                "value": "d2r1l8k32qe758.cloudfront.net"
+              }
+            ],
+            "user-agent": [
+              {
+                "key": "User-Agent",
+                "value": "curl/7.66.0"
+              }
+            ],
+            "accept": [
+              {
+                "key": "accept",
+                "value": "*/*"
+              }
+            ]
+          },
+          "method": "GET",
+          "querystring": "",
+          "uri": "/"
+        }
+      }
+    }
+  ]
+}
