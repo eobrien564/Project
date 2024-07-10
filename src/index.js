@@ -1,4 +1,3 @@
-'use strict';
 exports.handler = (event, context, callback) => {
 
     // Get request and request headers
