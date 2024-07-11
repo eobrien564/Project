@@ -13,35 +13,6 @@
   <title>Under construction</title>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-  <body>
-    <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
-    
-    <script>
-    const xValues = [100,200,300,400,500,600,700,800,900,1000];
-    
-    new Chart("myChart", {
-      type: "line",
-      data: {
-        labels: xValues,
-        datasets: [{ 
-          data: [1000,1000,1000,1000,1000,1000,1000,1000,1000,1000],
-          borderColor: "red",
-          fill: false
-        }, { 
-          data: [1600,1700,1700,1900,2000,2700,4000,5000,6000,7000],
-          borderColor: "green",
-          fill: false
-        }, { 
-          data: [6000,6000,6000,6000,6000,6000,6000,6000,6000,6000],
-          borderColor: "blue",
-          fill: false
-        }]
-      },
-      options: {
-        legend: {display: false}
-      }
-    });
-    </script>
     
 
   <link rel="stylesheet" href=https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css
@@ -184,7 +155,35 @@
 
       <h1>UNDER CONSTRUCTION</h1>
 
-      <p class="lead"> Dexom API summary stats is currently in production.
+      <p class="lead"> <body>
+        <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+        
+        <script>
+        const xValues = [100,200,300,400,500,600,700,800,900,1000];
+        
+        new Chart("myChart", {
+          type: "line",
+          data: {
+            labels: xValues,
+            datasets: [{ 
+              data: [1000,1000,1000,1000,1000,1000,1000,1000,1000,1000],
+              borderColor: "red",
+              fill: false
+            }, { 
+              data: [1600,1700,1700,1900,2000,2700,4000,5000,6000,7000],
+              borderColor: "green",
+              fill: false
+            }, { 
+              data: [6000,6000,6000,6000,6000,6000,6000,6000,6000,6000],
+              borderColor: "blue",
+              fill: false
+            }]
+          },
+          options: {
+            legend: {display: false}
+          }
+        });
+        </script>
 
       </p>
 
