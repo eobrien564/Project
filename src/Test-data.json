@@ -1,0 +1,21 @@
+{
+  "recordType": "egv",
+  "recordVersion": "3.0",
+  "userId": "5b329ebcfbf2f0ba7e49d4c5eb57775468f5ee657ac16fcde07e1fd08197b4c7",
+  "records": [
+    {
+      "recordId": "2cab70ee-d3b4-5a34-9aa9-767513ab72bd",
+      "systemTime": "2022-01-30T23:49:55Z",
+      "displayTime": "2022-01-30T15:49:55-08:00",
+      "transmitterId": "cdb4f8eea4392295413c64d5bc7a9e0e0ee9b215fb43c5a6d71d4431e540046b",
+      "transmitterTicks": 85273,
+      "value": 103,
+      "trend": "flat",
+      "trendRate": 0,
+      "unit": "mg/dL",
+      "rateUnit": "mg/dL/min",
+      "displayDevice": "iOS",
+      "transmitterGeneration": "g6"
+    }
+  ]
+}
