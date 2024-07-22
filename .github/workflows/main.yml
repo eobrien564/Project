@@ -21,5 +21,19 @@ jobs:
       
       
       # Remove this step if you're not using CloudFront
-   # - name: Invalidate CloudFront Objects
-   #   run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DIST_ID }} --path "/*"
+    - name: Invalidate CloudFront Objects
+      run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DIST_ID }} --path "/*"
+
+    - name: Update cloudfront distribution
+      uses: chaitanyapotti/cloudfront-update-distribution@v3
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+        cloudfront-distribution-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+        path-pattern: ${{ secrets.PATH_PATTERN }}
+        lambda-association-event-type: ${{ secrets.LAMBDA_ASSOCIATION_EVENT_TYPE }}
+        lambda-association-version-arn: ${{ secrets.LAMBDA_ASSOCIATION_VERSION_ARN }}
+        cloudfront-invalidation-required: true
+        cloudfront-invalidation-path: "/*"
+        cloudfront-wait-for-service-update: false
