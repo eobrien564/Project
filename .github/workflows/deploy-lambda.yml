@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - '**.py' # Change to the file extension of the language that you are using.
+      - 'index.py' # Change to the file extension of the language that you are using.
 
 jobs:
   deploy:
@@ -41,7 +41,7 @@ jobs:
         # Copy only the modified .py files from the commit into the unzipped directory
         # This will maintain their directory structure.
         for file in $(git diff-tree --no-commit-id --name-only -r HEAD); do
-            if [[ $file == *.py ]]; then
+            if [[ $file == index.py ]]; then
                 # Create the directory structure in lambda_env for the modified file
                 mkdir -p lambda_env/$(dirname $file)
                 # Copy the modified file
