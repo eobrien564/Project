@@ -21,5 +21,6 @@ jobs:
       
       
       # Remove this step if you're not using CloudFront
-    - name: Invalidate CloudFront Objects
-      run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DIST_ID }} --path "/*"
+    #- name: Invalidate CloudFront Objects
+    # Doesn'r work due to Node.js error
+    #  run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DIST_ID }} --path "/*"
