@@ -1,8 +1,6 @@
 import json
 import base64
 
-print('Loading function')
-
 
 def lambda_handler(event, context):
     print(event)
