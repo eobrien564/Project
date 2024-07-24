@@ -1,7 +1,7 @@
 import json
 import base64
 
-print("AHHHHHHHHH")
+print("MOOOOOO")
 
 def lambda_handler(event, context):
     print(event)
