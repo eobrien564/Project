@@ -9,8 +9,8 @@ def lambda_handler(event, context):
     request = event['Records'][0]['cf']['request']
     headers = request['headers']
 
-    authUser = 'user'
-    authPass = 'pass'
+    authUser = 'jaketraub'
+    authPass = '#DenisDMenace2021'
 
     passString = (authUser + ':' + authPass).encode()
     b64val = base64.b64encode(passString)

@@ -26,20 +26,40 @@
     body {
 
       padding-top: 5rem;
+      text-align: center
 
     }
 
- 
+    canvas {
+      padding-left: 0;
+      padding-right: 0;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 200;
+      display: block;
+      width: 800px;
+    }
+
 
     .starter-template {
 
       padding: 3rem 1.5rem;
 
       text-align: center;
+      text-anchor: middle;
 
     }
 
- 
+    .box {
+      width: 110px;
+      height: 50px;
+      padding: 10px;
+      border: 5px solid rgb(0, 50, 81);
+      position: absolute;
+      left: 600px;
+      right: 600px;
+      top: 180px;
+    }
 
     .bd-placeholder-img {
 
@@ -79,7 +99,7 @@
 
   <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
 
-    <a class="navbar-brand" href="#">My Static Website</a>
+    <a class="navbar-brand" href="#">Jake's Summary Stats</a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
 
@@ -88,114 +108,64 @@
       <span class="navbar-toggler-icon"></span>
 
     </button>
-
- 
-
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-
-      <ul class="navbar-nav mr-auto">
-
-        <li class="nav-item active">
-
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-
-        </li>
-
-        <li class="nav-item">
-
-          <a class="nav-link" href="#">Link</a>
-
-        </li>
-
-        <li class="nav-item">
-
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-
-        </li>
-
-        <li class="nav-item dropdown">
-
-          <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
-
-            aria-expanded="false">Dropdown</a>
-
-          <div class="dropdown-menu" aria-labelledby="dropdown01">
-
-            <a class="dropdown-item" href="#">Action</a>
-
-            <a class="dropdown-item" href="#">Another action</a>
-
-            <a class="dropdown-item" href="#">Something else here</a>
-
-          </div>
-
-        </li>
-
-      </ul>
-
-      <form class="form-inline my-2 my-lg-0">
-
-        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-
-      </form>
-
-    </div>
-
   </nav>
-
- 
 
   <main role="main" class="container">
 
- 
+
 
     <div class="starter-template">
 
       <h1>UNDER CONSTRUCTION</h1>
 
-      <p class="lead"> <body>
-        <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
-        
-        <script>
-        const xValues = [100,200,300,400,500,600,700,800,900,1000];
-        
-        new Chart("myChart", {
-          type: "line",
-          data: {
-            labels: xValues,
-            datasets: [{ 
-              data: [1000,1000,1000,1000,1000,1000,1000,1000,1000,1000],
-              borderColor: "red",
-              fill: false
-            }, { 
-              data: [1600,1700,1700,1900,2000,2700,4000,5000,6000,7000],
-              borderColor: "green",
-              fill: false
-            }, { 
-              data: [6000,6000,6000,6000,6000,6000,6000,6000,6000,6000],
-              borderColor: "blue",
-              fill: false
-            }]
-          },
-          options: {
-            legend: {display: false}
-          }
-        });
-        </script>
+    </div>
 
+    <div class="box">
+      <p>
+      In Range %
       </p>
-
     </div>
 
- 
+    <p class="lead"> <body>
+      <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+      
+      <script>
+      const xValues = ["0:00","1:00","2:00","3:00","4:00","5:00","6:00","7:00","8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00"];
+      
+      new Chart("myChart", {
+        type: "line",
+        data: {
+          labels: xValues,
+          datasets: [{ 
+            data: [10.0,10.0,10.0,10.0,10.0,10.0,10.0,10.0,10.0,10.0,10.0,10.0,10.0,10.0,10.0,10.0,10.0,10.0,10.0,10.0,10.0,10.0,10.0,10.0],
+            borderColor: "green",
+            fill: false
+          }, { 
+            data: [5.6,10.8,9.0,7.9,4.6,2.3,5.4,7.1,4.0,5.7,9.6,12.4,3.5,9.0,13.9,20.2,2.8,24.4,2.6,12.9,16.8,18.2,4.1,8.8],
+            borderColor: "black",
+            fill: false
+          }, { 
+            data: [4.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0],
+            borderColor: "green",
+            fill: false
+          }]
+        },
+        options: {
+          scales: {
+              yAxes : [{
+                  ticks : {
+                      max : 25.0,    
+                      min : 0.0
+                  }
+              }]
+          },
+          legend: {display: false}
+        }
+      });
+      </script>
 
-    <div class="starter-template alert alert-light" role="alert">
+    </p>
 
-      Navigation and search functions are intentionally not implemented.
-
-    </div>
 
  
 
