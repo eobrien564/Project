@@ -30,9 +30,9 @@ jobs:
         echo $(git diff --name-only HEAD^ HEAD)
     - name: Deploy Modified Files
       run: |
-        S3_BUCKET=<dexcom-api-app>
-        S3_KEY=<index.zip>
-        LAMBDA_FUNCTION_NAME=<login-page>
+        S3_BUCKET=dexcom-api-app
+        S3_KEY=index.zip
+        LAMBDA_FUNCTION_NAME=login-page
         # Download the existing zip from S3
         aws s3 cp s3://$S3_BUCKET/$S3_KEY existing_lambda.zip
         # Unzip the existing package
