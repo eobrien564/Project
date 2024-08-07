@@ -17,7 +17,7 @@ jobs:
     # Change ./_site/ to the location of your website in your repository,
 
     - name: Deploy to S3 bucket
-      run: aws s3 sync ./src/ ${{ secrets.S3_BUCKET }} 
+      run: aws s3 sync ./src/ ${{ secrets.S3_BUCKET }} --delete
       
       
       # Remove this step if you're not using CloudFront
