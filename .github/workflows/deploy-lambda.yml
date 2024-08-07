@@ -30,7 +30,6 @@ jobs:
         echo $(git diff --name-only HEAD^ HEAD)
     - name: Deploy Modified Files
       run: |
-        # Constants
         S3_BUCKET=<dexcom-api-app>
         S3_KEY=<index.zip>
         LAMBDA_FUNCTION_NAME=<login-page>
