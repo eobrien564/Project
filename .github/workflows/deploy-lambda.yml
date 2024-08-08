@@ -24,7 +24,7 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1 # Modify this to your desired AWS region
 
-    - name: Print changed files # To properly debug what is being deployed (It can be removed).
+    - name: Print changed files 
       run: |
         echo "List of changed files:" 
         echo $(git diff --name-only HEAD^ HEAD)
@@ -34,9 +34,9 @@ jobs:
         S3_KEY=index.zip
         LAMBDA_FUNCTION_NAME=login-page
         # Download the existing zip from S3
-        aws s3 cp s3://$S3_BUCKET/$S3_KEY index.zip
+        aws s3 cp s3://$S3_BUCKET/$S3_KEY existing_lambda.zip
         # Unzip the existing package
-        unzip index.zip -d lambda_env
+        unzip existing_lambda.zip -d lambda_env
         # Copy only the modified .py files from the commit into the unzipped directory
         # This will maintain their directory structure.
         for file in $(git diff-tree --no-commit-id --name-only -r HEAD); do
@@ -61,4 +61,4 @@ jobs:
         aws lambda update-function-code --function-name $LAMBDA_FUNCTION_NAME --s3-bucket $S3_BUCKET --s3-key $S3_KEY
         # Cleanup
         rm -r lambda_env
-        rm index.zip updated_lambda.zip
+        rm existing_lambda.zip updated_lambda.zip
