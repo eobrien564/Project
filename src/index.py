@@ -1,7 +1,7 @@
 import json
 import base64
 
-print("T1")
+print("T2")
 
 def lambda_handler(event, context):
     print(event)
@@ -9,7 +9,7 @@ def lambda_handler(event, context):
     headers = request['headers']
 
     authUser = 'jaketraub'
-    authPass = '#DenisDMenace2021'
+    authPass = '#DennisDMenace2021'
 
     passString = (authUser + ':' + authPass).encode()
     b64val = base64.b64encode(passString)
