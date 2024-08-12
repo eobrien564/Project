@@ -1,26 +1,36 @@
-name: CI
-on: [push]
+name: Deploy to AWS
+on:
+  push:
+    branches:
+      - main  # Change to your deployment branch
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-
-
-    - name: Configure AWS Credentials
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.10
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install boto3
+    - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1 
-
-    # Change ./_site/ to the location of your website in your repository,
-
-    - name: Deploy to S3 bucket
-      run: aws s3 sync ./src/ ${{ secrets.S3_BUCKET }} --delete
-      
-      
-      # Remove this step if you're not using CloudFront
-    #- name: Invalidate CloudFront Objects
-    # Doesn't work due to Node.js error
-    #  run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DIST_ID }} --path "/*"
+        aws-region: us-east-1  
+    - name: Sync S3 bucket
+      run: |
+        aws s3 sync ./path-to-your-static-site s3://dexcom-api-app --delete
+    - name: Invalidate CloudFront cache
+      run: |
+        aws cloudfront create-invalidation --distribution-id E1J03GUBWX9Y8C --paths "/*"
+    - name: Deploy Lambda function
+      run: |
+        cd ./src
+        zip index.zip * -x "*.git*"
+        aws lambda update-function-code --function-name login-page --zip-file fileb://index.zip
