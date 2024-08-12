@@ -49,8 +49,6 @@ jobs:
                 echo "Copied $file to lambda_env/$file"
                 echo "Content of $file after copying:"
                 cat lambda_env/$file
-              else then
-                echo "NO FILE"
             fi
         done
         # Zip the directory again
