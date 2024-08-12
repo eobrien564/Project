@@ -1,26 +1,42 @@
-name: CI
-on: [push]
+name: deploy-app-on-s3
+on:
+  pull_request:
+    branches: [master]
+    types: [closed]
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
+    env:
+      AWS_S3_BUCKET_NAME: dexcom-api-app
+      AWS_CF_DISTRIBUTION_ID: E1J03GUBWX9Y8C
+    strategy:
+      matrix:
+        node-version: [10.x]
     steps:
-    - uses: actions/checkout@v2
-
-
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1 
-
-    # Change ./_site/ to the location of your website in your repository,
-
-    - name: Deploy to S3 bucket
-      run: aws s3 sync ./src/ ${{ secrets.S3_BUCKET }} --delete
-      
-      
-      # Remove this step if you're not using CloudFront
-    #- name: Invalidate CloudFront Objects
-    # Doesn'r work due to Node.js error
-    #  run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DIST_ID }} --path "/*"
+      - uses: actions/checkout@master
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install Dependencies
+        run: npm install
+      - name: Build Application
+        run: npm run-script build
+      - uses: jakejarvis/s3-sync-action@master
+        name: Upload App to S3 Bucket
+        with:
+          args: --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: ${{ env.AWS_S3_BUCKET_NAME }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: "us-east-1"
+          SOURCE_DIR: "dist"
+      - name: Create CloudFront Cache Invalidation
+        uses: chetan/invalidate-cloudfront-action@master
+        env:
+          DISTRIBUTION: ${{ env.AWS_CF_DISTRIBUTION_ID }}
+          PATHS: "/*"
+          AWS_REGION: "us-east-1"
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
