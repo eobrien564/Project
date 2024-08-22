@@ -30,7 +30,7 @@ jobs:
     - name: Invalidate CloudFront cache
       run: |
         aws cloudfront create-invalidation --distribution-id E1J03GUBWX9Y8C --paths "/*"
-    - name: Zip the Lambda function
+    - name: Deploy Lambda function
       run: |
-        zip -r function.zip .
-        aws lambda update-function-code --function-name dexcom-api --zip-file fileb://function.zip
+        zip dexcom-function.zip * -x "*.git*" 
+        aws lambda update-function-code --function-name dexcom-api --zip-file fileb://dexcom-function.zip
