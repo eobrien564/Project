@@ -32,5 +32,5 @@ jobs:
     - name: Deploy Lambda function
       run: |
         cd ./src
-        zip -r dexcom-function.zip
-        aws lambda update-function-code --function-name dexcom-api --zip-file fileb://dexcom-function.zip
+        zip -r lambda-function.zip lambda-function -x ".git/*" ".github/*" 
+        aws lambda update-function-code --function-name dexcom-api --zip-file fileb://lambda-function.zip
