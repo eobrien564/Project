@@ -1,6 +1,6 @@
 import urllib.parse
 #import requests  # No longer using botocore.vendored.requests as it's deprecated
-from botocore.vendored import requests
+import requests
 import json
 
 CLIENT_ID = 'ygHSIkgQ11P18yMZg8Y0o6tUaCsnqnDr'
