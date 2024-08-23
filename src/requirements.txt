@@ -1,1 +1,1 @@
-requests==2.28.1
+https://developer-portal-prod-us-dot-g5-dexcom-prod-us-5.appspot.com/sandbox-login?response_type=code&client_id=ygHSIkgQ11P18yMZg8Y0o6tUaCsnqnDr&redirect_uri=https%3A%2F%2Fd2r1l8k32qe758.cloudfront.net%2Fcallback&scope=
