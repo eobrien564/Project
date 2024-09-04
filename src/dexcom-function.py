@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 import urllib.parse
 import requests
 import json
@@ -42,13 +43,33 @@ def lambda_handler(event, context):
         api_response = make_api_request(access_token)
         print(f"******API RETURNED {api_response}")
         
+        # Embedd HTML file in response
+        # Define the path to the HTML file within your Lambda package
+        html_file_path = 'index.html'
+
+        # Get values in range
+        values, total, all_values = get_in_range_values(api_response)
+        high, low, percent_in_range = get_table_values(total, values)
+        
+        print(f'****VALUES = {values}')
+        print(f'****COUNT = {total}')
+    
+        # Read the contents of the HTML file
+        with open(html_file_path, 'r') as html_file:
+            html_content = html_file.read()
+
+        html_content = html_template.replace('{{ high_values }}', json.dumps(high, indent=4))
+        html_content = html_template.replace('{{ all_values }}', json.dumps(all_values, indent=4))
+        html_content = html_template.replace('{{ low_values }}', json.dumps(low, indent=4))
+        html_content = html_template.replace('{{ in_range_percentage }}', json.dumps(percent_in_range, indent=4))
+        
         response = {
             'status': '200',
             'statusDescription': 'OK',
             'headers': {
                 'content-type': [{ 'key': 'Content-Type', 'value': 'text/html' }]
             },
-            'body': '<html><body><h1>Dexcom API returned</h1></body></html>'
+            'body': html_content
         }
         
         return response
@@ -98,9 +119,24 @@ def make_api_request(access_token):
     """
     print("make_api_request")
 
+    # Get the current date and time
+    now = datetime.now()
+    
+    # Format today's date and time in the correct format
+    formatted_today = now.strftime("%Y-%m-%dT%H:%M:%S")
+    
+    # Calculate the date 3 days ago
+    three_days_ago = now - timedelta(days=3)
+    
+    # Format the date 3 days ago in the correct format
+    formatted_three_days_ago = three_days_ago.strftime("%Y-%m-%dT%H:%M:%S")
+    
+    print("Today's date:", formatted_today)
+    print("Date 3 days ago:", formatted_three_days_ago)
+
     query = {
-      "startDate": "2022-02-06T09:12:35",
-      "endDate": "2022-02-16T09:12:35"
+      "startDate": formatted_three_days_ago,
+      "endDate": formatted_today
     }
     
     headers = {
@@ -127,3 +163,40 @@ def extract_code_from_querystring(querystring):
 
     # If 'code' not found, return None
     return None
+
+def get_in_range_values(api_response):
+    
+    in_range_values = []
+    all_values = []
+    count = 0
+    for record in api_response['records']:
+        count += 1
+        all_values.append(record['value'])
+        # Check if value is in range
+        if record['value'] >= 40 and record['value'] <= 400:
+          # Append to in range list
+          in_range_values.append(record['value'])
+    
+    return in_range_values, count, all_values
+    
+def get_table_values(count, in_range):
+    high_bar = []
+    low_bar = []
+    
+    for i in range(count):
+        high_bar.append(400)
+        low_bar.append(40)
+    
+    percent_in_range = (len(in_range)/count) * 100
+    print(f'% IN RANGE{percent_in_range}')
+    
+    return high_bar, low_bar, percent_in_range
+    
+
+    
+    
+    
+    """
+    # Replace placeholders with actual API data
+    html_content = html_template.replace('{{ api_data }}', json.dumps(api_data, indent=4))
+"""
